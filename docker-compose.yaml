@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  etl-pipeline:
+    build: .
+    container_name: taxi_etl_2026
+    environment:
+      - DATA_URL=https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2026-01.parquet
+      # Bisa tambahkan ZONE_URL jika diperlukan, tapi tidak wajib
+    volumes:
+      # Mount folder data lokal ke container
+      - ./data:/app/data
+      # Mount folder logs lokal ke container
+      - ./logs:/app/logs
+    # Jika ingin pipeline berjalan sekali lalu container berhenti (default CMD sudah cukup)
+    # Tidak perlu command tambahan

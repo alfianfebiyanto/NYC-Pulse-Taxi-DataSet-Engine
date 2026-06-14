@@ -1,0 +1,12 @@
+# Virtual Environment
+venv/
+
+# Logs
+*.log
+
+# Python Cache
+__pycache__/
+*.pyc
+
+# Notebook typos
+EDA.iypnb
