@@ -1,37 +1,44 @@
+"""
+Centralized logging configuration for the entire pipeline.
+"""
+
+
+# Import Library
 import logging
 import os
 from datetime import datetime
 
 
 def setup_logger():
-    """Konfigurasi Logging secara terpusat untuk seluruh project."""
+    """
+    Initialize global logging configuration.
+    Logs are written to both a daily rotating file and the terminal.
+    """
 
     log_dir = os.path.join(os.getcwd(), "logs")
-
-    # PERBAIKAN: Menggunakan os.makedirs agar exist_ok bisa berjalan tanpa error
     os.makedirs(log_dir, exist_ok=True)
 
-    # Nama file log berdasarkan tanggal, misal: pipeline_2026-06-11.log
+    # Log file format: pipeline_YYYY-MM-DD.lo
     log_filename = f"pipeline_{datetime.now().strftime('%Y-%m-%d')}.log"
     log_filepath = os.path.join(log_dir, log_filename)
 
+    # Log message format
     log_format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
     format_jam = "%Y-%m-%d %H:%M:%S"
 
-    # Konfigurasi dasar (Hanya dijalankan sekali di seluruh aplikasi)
+    # Base configuration
     logging.basicConfig(
         level=logging.INFO,
         format=log_format,
         datefmt=format_jam,
         handlers=[
-            logging.FileHandler(
-                log_filepath, encoding="utf-8"
-            ),  # Catat ke file
-            logging.StreamHandler(),  # Tetap munculkan di terminal
+            logging.FileHandler(log_filepath, encoding="utf-8"), # Output to file
+            logging.StreamHandler(),  # Output to terminal
         ],
     )
 
-    # Kembalikan logger utama
+    # Return the main logger for use across modules
     return logging.getLogger("PipelineUtama")
 
-logger =setup_logger()
+# Global logger instance
+logger = setup_logger()

@@ -1,10 +1,18 @@
+"""
+Core transformation utilities for taxi trip data.
+"""
+
+# Import Library
 import pandas as pd
 
 class DataTransformer:
-    
+
     @staticmethod
-    # Rename Coloumns
     def rename_columns_trip(df):
+        """
+        Convert column names to consistent snake_case format.
+        """
+
         return df.rename(columns={
             "VendorID": "vendor_id",
             "RatecodeID": "rate_code_id",
@@ -16,8 +24,11 @@ class DataTransformer:
         })
 
     @staticmethod
-    # Add Datetime
     def enrich_datetime(df):
+        """
+        Extract temporal features: hour, date, day name, trip duration, and weekend flag.
+        """
+
         df['pickup_hour'] = df['pickup_datetime'].dt.hour
         df['pickup_date'] = df['pickup_datetime'].dt.date
         df['pickup_day_name'] = df['pickup_datetime'].dt.day_name()
@@ -26,8 +37,11 @@ class DataTransformer:
         return df
 
     @staticmethod
-    # Add Time Period
     def add_time_period(df):
+        """
+        Bucket hour into descriptive time periods (Morning Rush, Afternoon, Night, etc.).
+        """
+
         def _period(hour):
             if 7 <= hour <= 9: return 'Morning Rush'
             if 0 <= hour <= 5: return 'Late Night'
@@ -40,31 +54,35 @@ class DataTransformer:
         return df
 
     @staticmethod
-    # Add Mapping Categorical Payment and Store and fwd flag
     def map_categorical(df):
+        """
+        Map numeric/code values to human-readable labels for payment_type and store_and_fwd_flag.
+        """
         
-        # Payment Mapping
+        # Payment type mapping
         payment_map = {
             1: 'Credit Card', 
             2: 'Cash', 
             3: 'No Charge',
             4: 'Dispute',
             0: 'Unknown'}
-
-        # Impleme
         df['payment_type'] = df['payment_type'].map(payment_map).fillna('Invalid')
 
-        # Store Mapping
+        # Store and forward flag mapping
         store_map = {
             'Y': 'Store and Forward', 
             'N': 'Normal'}
-
         df['store_and_fwd_flag'] = df['store_and_fwd_flag'].map(store_map).fillna('Invalid')
+
         return df
 
     @staticmethod
     def join_zones(df, zone_df):
-        # Pickup Location
+        """
+        Enrich trip data with pickup and dropoff zone details (zone, borough, service_zone).
+        """
+
+        # Join for pickup location
         df = df.merge(
             zone_df[['location_id', 'zone', 'borough', 'service_zone']],
             left_on='pu_location_id', right_on='location_id', how='left'
@@ -72,7 +90,7 @@ class DataTransformer:
         df.rename(columns={'zone': 'pu_zone', 'borough': 'pu_borough', 'service_zone': 'pu_service_zone'}, inplace=True)
         df.drop(columns=['location_id'], inplace=True)
         
-        # Dropoff Location
+        # Join for dropoff locatio
         df = df.merge(
             zone_df[['location_id', 'zone', 'borough', 'service_zone']],
             left_on='do_location_id', right_on='location_id', how='left'
@@ -84,6 +102,11 @@ class DataTransformer:
 
     @staticmethod
     def reorder_columns(df):
+        """
+        Arrange columns in a predefined logical order for consistent output.
+        """
+
+
         final_order = [
             'vendor_id', 'pickup_datetime', 'dropoff_datetime', 'trip_duration_minutes',
             'pickup_date', 'pickup_hour', 'pickup_day_name', 'is_weekend', 'time_period',
