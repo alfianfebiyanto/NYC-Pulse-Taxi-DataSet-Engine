@@ -70,15 +70,13 @@ python main.py
 | Data Taxi Januari 2026 (Parquet) | `https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2026-01.parquet` |
 | Taxi Zone Lookup Table (CSV) | `https://d37ci6vzurychx.cloudfront.net/misc/taxi_zone_lookup.csv` |
 
-<<<<<<<< HEAD:README_in_English.md
-## License
-========
 ## Documentation & Video
 
 - Complete project documentation is available in the `README.md` and `README_Project_in_Indonesia` files.
 - The project explanation video (maximum 10 minutes) can be accessed via the following link: `[insert Google Drive link]`
 
-## Author
->>>>>>>> 33a15d573f36baf88c8626622a816ad3a728a4cf:README.md
+## License
+This project is open source and developed for educational purposes as part of the Data Engineering Capstone Project.
 
+## Author
 **Alfian Febiyanto**
