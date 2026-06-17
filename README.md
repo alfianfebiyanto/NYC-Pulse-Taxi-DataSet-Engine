@@ -73,7 +73,7 @@ python main.py
 ## Documentation & Video
 
 - Complete project documentation is available in the `README.md` and `README_Project_in_Indonesia` files.
-- The project explanation video (maximum 10 minutes) can be accessed via the following link: `[insert Google Drive link]`
+- The project explanation video can be accessed via the following link: `https://youtu.be/BeoM7yKqVlM?si=PHPtWcmZWQCmYk5H`
 
 ## License
 This project is open source and developed for educational purposes as part of the Data Engineering Capstone Project.

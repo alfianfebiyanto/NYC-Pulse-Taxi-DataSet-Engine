@@ -66,9 +66,19 @@ python main.py
 
 NYC TLC Trip Record Data, tersedia di: https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page
 
+## Dokumentasi & Video Project
+
+Dokumentasi lengkap terkait implementasi project, arsitektur pipeline, proses ETL, transformasi data, validasi kualitas data, automation, serta containerization tersedia pada:
+
+- `README.md`
+- `README_Project_in_Indonesia.md`
+
+Dokumentasi ini dibuat untuk menjelaskan alur kerja project, konfigurasi environment, serta panduan menjalankan pipeline secara end-to-end.
+
+Video presentasi dan penjelasan project dapat diakses melalui link berikut: https://youtu.be/BeoM7yKqVlM?si=PHPtWcmZWQCmYk5H
+
 ## License
 Open source, dibuat untuk keperluan edukasi/capstone.
-
 
 ## Engineer 
 **Alfian Febiyanto**
